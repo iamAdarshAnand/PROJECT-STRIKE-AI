@@ -68,7 +68,12 @@ jobs:
               quit()
           GDSCRIPT
           godot --headless --path . --editor --script /tmp/configure_android.gd
-          godot --headless --path . --export-debug "Android" build/ProjectStrikeAI.apk
+          echo "Android SDK: $ANDROID_HOME"
+          echo "Java SDK: $JAVA_HOME"
+          ls -l "$HOME/.android/debug.keystore"
+          test -f "$ANDROID_HOME/build-tools/34.0.0/aapt2"
+          test -f "$HOME/.local/share/godot/export_templates/4.3.stable/android_debug.apk"
+          godot --headless --verbose --path . --export-debug "Android" build/ProjectStrikeAI.apk
           test -s build/ProjectStrikeAI.apk
       - name: Upload installable APK
         uses: actions/upload-artifact@v4
