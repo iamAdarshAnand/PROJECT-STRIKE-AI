@@ -38,7 +38,7 @@ jobs:
           echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
           echo "ANDROID_SDK_ROOT=$ANDROID_HOME" >> "$GITHUB_ENV"
           yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null || true
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-34" "build-tools;34.0.0" "platform-tools"
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-34" "build-tools;34.0.0" "platform-tools" "cmdline-tools;latest" "cmake;3.10.2.4988404" "ndk;23.2.8568313"
       - name: Create Android debug signing key
         run: |
           mkdir -p "$HOME/.android"
@@ -68,6 +68,7 @@ jobs:
               quit()
           GDSCRIPT
           godot --headless --path . --editor --script /tmp/configure_android.gd
+          grep -n -A 3 -B 2 "android_sdk_path\|java_sdk_path" "$HOME/.config/godot/editor_settings-4.tres" || true
           echo "Android SDK: $ANDROID_HOME"
           echo "Java SDK: $JAVA_HOME"
           ls -l "$HOME/.android/debug.keystore"
