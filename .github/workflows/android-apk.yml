@@ -58,6 +58,13 @@ jobs:
               var settings = EditorInterface.get_editor_settings()
               settings.set_setting("export/android/android_sdk_path", OS.get_environment("ANDROID_HOME"))
               settings.set_setting("export/android/java_sdk_path", OS.get_environment("JAVA_HOME"))
+              var output = OS.get_environment("HOME").path_join(".config/godot/editor_settings-4.tres")
+              var err = ResourceSaver.save(settings, output)
+              if err != OK:
+                  push_error("Could not persist Godot editor settings: %s" % err)
+                  quit(1)
+                  return
+              print("Saved Android SDK paths to ", output)
               quit()
           GDSCRIPT
           godot --headless --path . --editor --script /tmp/configure_android.gd
