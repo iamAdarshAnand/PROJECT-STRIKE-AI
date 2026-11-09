@@ -52,6 +52,16 @@ jobs:
         run: |
           mkdir -p build
           godot --headless --path . --editor --quit
+          cat > /tmp/configure_android.gd <<'GDSCRIPT'
+          extends SceneTree
+          func _initialize():
+              var settings = EditorInterface.get_editor_settings()
+              settings.set_setting("export/android/android_sdk_path", OS.get_environment("ANDROID_HOME"))
+              settings.set_setting("export/android/java_sdk_path", OS.get_environment("JAVA_HOME"))
+              settings.save()
+              quit()
+          GDSCRIPT
+          godot --headless --path . --editor --script /tmp/configure_android.gd
           godot --headless --path . --export-debug "Android" build/ProjectStrikeAI.apk
           test -s build/ProjectStrikeAI.apk
       - name: Upload installable APK
