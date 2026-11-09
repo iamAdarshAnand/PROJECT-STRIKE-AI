@@ -3,7 +3,6 @@
 **A prototype 3D first-person Android arena shooter featuring adaptive enemy tactics and lightweight on-device machine learning.**
 
 **Developer / project credit:** [Adarsh Anand](https://github.com/iamAdarshAnand)  
-**AI-assisted development:** OpenAI ChatGPT  
 **Engine:** Godot 4.2+ (GDScript) · **Rendering:** GL Compatibility · **Platform:** Android (landscape), desktop for testing
 
 > **Status:** Source-code prototype. Not yet verified by a Godot editor run or Android APK build. No precompiled APK is included.
@@ -62,7 +61,6 @@ scripts/
 ## Credits
 
 **Adarsh Anand** — project owner and developer.  
-**OpenAI ChatGPT** — AI-assisted prototyping, code generation and documentation.  
 **Godot Engine** — open-source game engine (see [Godot license](https://godotengine.org/license/)).
 
 All prototype geometry is generated in code. No third-party art, music, or sound assets are included.
