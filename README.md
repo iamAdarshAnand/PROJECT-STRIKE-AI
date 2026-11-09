@@ -69,4 +69,4 @@ All prototype geometry is generated in code. No third-party art, music, or sound
 
 ## License
 
-No license has been granted for this repository's original project code at this time. See GitHub's default copyright rules; a project license may be added later by the owner.
+This project is licensed under the **MIT License**. See [LICENSE](LICENSE). Copyright (c) 2026 Adarsh Anand.
