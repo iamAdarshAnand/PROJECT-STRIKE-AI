@@ -77,6 +77,28 @@ jobs:
           ls -l "$HOME/.android/debug.keystore"
           test -f "$ANDROID_HOME/build-tools/34.0.0/aapt2"
           test -f "$HOME/.local/share/godot/export_templates/4.3.stable/android_debug.apk"
+          cat > /tmp/diagnose_export.gd <<'GDSCRIPT'
+          extends SceneTree
+          func _initialize():
+              var presets = EditorExport.get_export_presets()
+              print("EXPORT_DIAGNOSTIC presets=", presets.size())
+              for preset in presets:
+                  var platform = preset.get_platform()
+                  print("EXPORT_DIAGNOSTIC platform=", platform.get_name())
+                  for method in platform.get_method_list():
+                      if "valid" in method.name or "warning" in method.name:
+                          print("EXPORT_DIAGNOSTIC method=", method.name, " args=", method.args.size())
+                  for key in ["package/unique_name", "package/name", "gradle_build/use_gradle_build", "keystore/debug"]:
+                      print("EXPORT_DIAGNOSTIC option ", key, "=", preset.get(key))
+                  var config_err = ""
+                  var missing_err = ""
+                  var valid = platform.has_valid_export_configuration(preset, false, config_err)
+                  var templates = platform.has_valid_project_configuration(preset, missing_err)
+                  print("EXPORT_DIAGNOSTIC export_valid=", valid, " project_valid=", templates)
+                  print("EXPORT_DIAGNOSTIC export_reason=", config_err, " project_reason=", missing_err)
+              quit()
+          GDSCRIPT
+          godot --headless --path . --editor --script /tmp/diagnose_export.gd
           godot --headless --verbose --path . --export-debug "Android" build/ProjectStrikeAI.apk
           test -s build/ProjectStrikeAI.apk
       - name: Upload installable APK
