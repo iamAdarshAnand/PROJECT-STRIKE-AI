@@ -227,14 +227,15 @@ func _physics_process(delta: float) -> void:
  player.velocity.y = -0.1
  player.move_and_slide()
  distance_walked += player.global_position.distance_to(previous_position)
- for enemy in enemies.duplicate():
+ for item in enemies.duplicate():
+  var enemy: CharacterBody3D = item
   if not is_instance_valid(enemy):
    enemies.erase(enemy)
    continue
-  var toward := player.global_position - enemy.global_position
+  var toward: Vector3 = player.global_position - enemy.global_position
   toward.y = 0
-  var dist := toward.length()
-  var id := enemy.get_instance_id()
+  var dist: float = toward.length()
+  var id: int = enemy.get_instance_id()
   var state: Dictionary = enemy_states[id]
   state["age"] += delta
   if state["age"] > 2.5:
@@ -244,14 +245,14 @@ func _physics_process(delta: float) -> void:
    state["action"] = ai.choose_action(state["context"])
    state["age"] = 0.0
    state["damage"] = 0.0
-  var forward := toward.normalized() if dist > 0.01 else Vector3.ZERO
-  var side := Vector3(-forward.z, 0, forward.x) * float(state["strafe"])
-  var enemy_direction := forward
+  var forward: Vector3 = toward.normalized() if dist > 0.01 else Vector3.ZERO
+  var side: Vector3 = Vector3(-forward.z, 0, forward.x) * float(state["strafe"])
+  var enemy_direction: Vector3 = forward
   if state["action"] == 1:
    enemy_direction = (forward * 0.35 + side * 0.9).normalized()
   elif state["action"] == 2:
    enemy_direction = (-forward * 0.8 + side * 0.35).normalized() if dist < 14.0 else forward
-  var ray_start := enemy.global_position + Vector3.UP * 0.3
+  var ray_start: Vector3 = enemy.global_position + Vector3.UP * 0.3
   var query := PhysicsRayQueryParameters3D.create(ray_start, ray_start + enemy_direction * 2.8)
   query.exclude = [enemy.get_rid(), player.get_rid()]
   var obstacle := get_world_3d().direct_space_state.intersect_ray(query)
@@ -296,7 +297,7 @@ func _shoot() -> void:
    var hp: int = target.get_meta("hp") - 1
    target.set_meta("hp", hp)
    if hp <= 0:
-    var id := target.get_instance_id()
+    var id: int = target.get_instance_id()
     if enemy_states.has(id):
      var state: Dictionary = enemy_states[id]
      ai.learn(state["context"], state["action"], clampf(float(state["damage"]) / 15.0 - 0.5, -1.0, 1.0))
