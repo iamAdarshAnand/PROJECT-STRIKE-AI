@@ -33,7 +33,7 @@ The `scripts/adaptive_ai.gd` module implements a **contextual multi-armed bandit
 ## Run in Godot
 
 1. Download/clone this repository.
-2. Install [Godot 4.2 or later](https://godotengine.org/download/).
+2. Install [Godot 4.2 or later](https://godotengine.org/download/). 
 3. Import `project.godot` using Godot Project Manager.
 4. Open the project and press **F5** to launch.
 5. Test controls and enemy behavior; address any Godot parser or device-specific errors before release.
