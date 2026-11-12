@@ -68,3 +68,11 @@ All prototype geometry is generated in code. No third-party art, music, or sound
 ## License
 
 This project is licensed under the **MIT License**. See [LICENSE](LICENSE). Copyright (c) 2026 Adarsh Anand.
+
+## Project discovery
+
+**Godot 3D Android FPS with Adaptive Enemy AI** — Godot first-person shooter prototype with on-device adaptive enemy tactics, wave-based gameplay and contextual bandit learning.
+
+**Related developer searches:** Godot FPS, Android shooter, adaptive enemy AI, GDScript, contextual bandit, 3D game.
+
+**Source:** [PROJECT-STRIKE-AI](https://github.com/iamAdarshAnand/PROJECT-STRIKE-AI) · **Author:** [Adarsh Anand](https://github.com/iamAdarshAnand)
